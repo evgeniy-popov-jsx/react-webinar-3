@@ -26,3 +26,9 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getId (list) {
+  let max = list.reduce((acc, curr) => acc.code > curr.code ? acc : curr)
+  
+  return max.code + 1;
+};
