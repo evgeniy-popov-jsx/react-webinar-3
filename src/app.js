@@ -1,4 +1,5 @@
 import React from 'react';
+import { plural } from './utils';
 import {createElement} from './utils.js';
 import './styles.css';
 
@@ -29,7 +30,7 @@ function App({store}) {
                 <div className='Item-title'>
                   {item.title} 
                   {item.count > 0
-                    ? ` | Выделяли ${item.count} раз(а)`
+                    ? ` | Выделяли ${item.count} ${plural(item.count)}`
                     : ''
                   }
                 </div>
