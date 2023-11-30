@@ -3,3 +3,11 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls__info {
+  margin-right: 10px;
+}
+
+.Controls__info span {
+  font-weight: bold;
+}

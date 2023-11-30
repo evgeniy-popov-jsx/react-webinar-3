@@ -1,0 +1,26 @@
+.Cart__item {
+    display: grid;
+    grid-template-columns: 0.5fr 10fr repeat(3, 2fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    align-items: end;
+    padding: 10px 0px 10px 0px;
+}
+
+.Cart__item-code { grid-area: 1 / 1 / 2 / 2; }
+.Cart__item-title { grid-area: 1 / 2 / 2 / 3; }
+
+.Cart__item-price { 
+    grid-area: 1 / 3 / 2 / 4; 
+    text-align: end;
+}
+.Cart__item-count { 
+    grid-area: 1 / 4 / 2 / 5; 
+    text-align: end;
+}
+.Cart__item-actions { 
+    grid-area: 1 / 5 / 2 / 6; 
+    display: flex;
+    justify-content: flex-end
+}

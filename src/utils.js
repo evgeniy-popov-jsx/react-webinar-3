@@ -50,3 +50,44 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Преобразование массива с уникальными значениями и отдельным ключем со значением повторений
+*/
+export function transformCartList(list) {
+  const idCountMap = {};
+
+  list.forEach(item => {
+    const id = item.code;
+    if (idCountMap[id]) {
+      idCountMap[id].count++;
+    } else {
+      idCountMap[id] = { ...item, count: 1 };
+    }
+  });
+
+  const result = Object.values(idCountMap);
+
+  return result;
+}
+/**
+ * Преобразование числа в красивый вид
+*/
+export function formatNumber(number) {
+  let numberString = number.toString();
+  let numberArray = numberString.split('');
+
+  const formattedArray = numberArray.map((digit, index) =>
+    (index > 0 && (numberArray.length - index) % 3 === 0) ? ' ' + digit : digit
+  );
+
+  return formattedArray.join('');
+}
+/**
+ * Считает общую стоимость
+*/
+export function getTotalPrice(items) {
+  return items.reduce((total, item)=>{
+    return total + item.price * item.count;
+  }, 0)
+}
