@@ -4,12 +4,12 @@ import Item from "../item";
 
 import './style.css';
 
-function List({list, addItem}) {
+function List({list, callback, nameBtn}) {
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} addItem={addItem}/>
+          <Item item={item} callback={callback} nameBtn={nameBtn}/>
         </div>
       )}
     </div>
@@ -18,7 +18,7 @@ function List({list, addItem}) {
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    code: PropTypes.number,
   })).isRequired
 };
 

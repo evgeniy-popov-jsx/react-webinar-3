@@ -1,7 +1,9 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
+  gap: 26px;
   padding: 20px;
+  font-size: 18px;
 }
 
 .Controls__info {

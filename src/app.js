@@ -2,8 +2,10 @@ import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
-import Cart from './components/cart';
 import PageLayout from "./components/page-layout";
+import ModalLayout from './components/modal-layout';
+import ModalHeader from './components/modal-header';
+import ModalTotal from './components/modal-total';
 
 
 /**
@@ -12,17 +14,18 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-  const [cartOpened, setCartOpened] = useState(true);
+  const [modalOpened, setModalOpened] = useState(false);
 
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const totalPrice = store.getState().cartTotalPrice;
 
   const callbacks = {
     onOpenCart: useCallback(() => {
-      setCartOpened(cartOpened => cartOpened === true ? false : true)
-    }, [cartOpened]),
-    addCartList: useCallback((item) => {
-      store.addItemCart(item);
+      setModalOpened(modalOpened => modalOpened === true ? false : true)
+    }, [modalOpened]),
+    addCartList: useCallback((code) => {
+      store.addItemCart(code);
     }, [store]),
     deleteItem: useCallback((code) => {
       store.deleteItem(code);
@@ -30,17 +33,19 @@ function App({store}) {
   }
 
   return (
-    <PageLayout>
-      <Head title='Магазин'/>
-      <Controls setCartOpened={callbacks.onOpenCart} 
-                cart={cart}/>
-      <List list={list}
-            addItem={callbacks.addCartList}/>
-      <Cart cartOpened={cartOpened} 
-            setCartOpened={callbacks.onOpenCart}
-            deleteItem={callbacks.deleteItem}
-            cart={cart} />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title='Магазин'/>
+        <Controls setModalOpened={callbacks.onOpenCart} cart={cart} totalPrice={totalPrice} />
+        <List list={list} callback={callbacks.addCartList} nameBtn={'Добавить'}/>
+      </PageLayout>
+      <ModalLayout modalOpened={modalOpened}>
+        <ModalHeader setModalOpened={callbacks.onOpenCart} />
+        <List list={cart} callback={callbacks.deleteItem} nameBtn={'Удалить'}/>
+        <ModalTotal totalPrice={totalPrice}/>
+      </ModalLayout>
+    </>
+
   );
 }
 

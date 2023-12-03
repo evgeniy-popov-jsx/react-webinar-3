@@ -1,3 +1,5 @@
+import item from "./components/item";
+
 /**
  * Хранилище состояния приложения
  */
@@ -37,22 +39,52 @@ class Store {
     for (const listener of this.listeners) listener();
   }
   /**
-   * Добавление товара
+   * Добавление товара по коду
    */
-  addItemCart(item) {
-    this.setState({
-      ...this.state,
-      cart: [...this.state.cart, {...item}]
-    })
-  };
+  addItemCart(code) {
+    const { list, cart, cartTotalPrice } = this.state;
+    const item = cart.find(item => item.code === code);
 
+    if (item) {
+      const updatedCart = cart.map(item =>
+        item.code === code 
+          ? { ...item, count: (item.count || 1) + 1 } 
+          : item
+        );
+
+        const updatedPrice = cartTotalPrice + item.price;
+
+        this.setState({
+          ...this.state,
+          cart: updatedCart,
+          cartTotalPrice: updatedPrice
+        });
+    } else {
+      const selectedItem = list.find(item => item.code === code);
+
+      if (selectedItem) {
+        const updatedCart = [...cart, { ...selectedItem, count: 1 }];
+        const updatedPrice = cartTotalPrice + selectedItem.price;
+
+        this.setState({
+          ...this.state,
+          cart: updatedCart,
+          cartTotalPrice: updatedPrice
+        });
+      }
+    }
+  };
   /**
    * Удаление товара по коду
    */
    deleteItem(code) {
+    const { cart, cartTotalPrice } = this.state;
+    const item = cart.find(item => item.code === code)
+
     this.setState({
       ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: cart.filter(item => item.code !== code),
+      cartTotalPrice: cartTotalPrice - item.price * item.count
     })
   };
 }

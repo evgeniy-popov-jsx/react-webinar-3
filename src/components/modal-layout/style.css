@@ -1,0 +1,20 @@
+.Modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    background: rgb(0, 0, 0,0.7);
+}
+.Modal.open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Modal-inner {
+    width: 960px;
+    min-height:407px;
+    background-color: #fff;
+    border-radius: 12px;
+}

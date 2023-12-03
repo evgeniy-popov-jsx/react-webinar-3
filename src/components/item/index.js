@@ -7,8 +7,8 @@ import './style.css';
 
 function Item(props) {
   const callbacks = {
-    addItem: () => {
-      props.addItem(props.item);
+    callback: () => {
+      props.callback(props.item.code);
     }
   }
 
@@ -17,8 +17,12 @@ function Item(props) {
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>{props.item.title}</div>
       <div className="Item-price">{formatNumber(props.item.price)} ₽</div>
+      {props.item.count >= 1
+        ? <div className="Item-count">{props.item.count} шт</div>
+        : ''
+      }
       <div className='Item-actions'>
-        <Button name={'Добавить'} callback={callbacks.addItem} />
+        <Button name={props.nameBtn} callback={callbacks.callback} />
       </div>
     </div>
   );
@@ -28,14 +32,13 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  addItem: PropTypes.func,
+  callback: PropTypes.func,
 };
 
 Item.defaultProps = {
-  addItem: () => {
+  callback: () => {
   },
 }
 
