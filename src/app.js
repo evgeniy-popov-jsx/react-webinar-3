@@ -42,7 +42,7 @@ function App({store}) {
       <ModalLayout modalOpened={modalOpened}>
         <ModalHeader setModalOpened={callbacks.onOpenCart} />
         <List list={cart} callback={callbacks.deleteItem} nameBtn={'Удалить'}/>
-        <ModalTotal totalPrice={totalPrice}/>
+        <ModalTotal totalPrice={totalPrice} cart={cart}/>
       </ModalLayout>
     </>
 

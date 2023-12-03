@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 import './style.css';
 
-function ModalTotal({totalPrice}) {
-    
-    return totalPrice === 0 ? (
+function ModalTotal({totalPrice, cart}) {
+
+    return cart.length === 0 ? (
         <div className="Total-empty">В корзине пусто...</div>
     ) : (
         <div className="Total">
