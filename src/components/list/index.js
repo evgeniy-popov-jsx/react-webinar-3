@@ -17,9 +17,9 @@ function List({list, callback, nameBtn}) {
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number,
-  })).isRequired
+  list: PropTypes.array,
+  callback: PropTypes.func,
+  nameBtn: PropTypes.string
 };
 
 export default List;

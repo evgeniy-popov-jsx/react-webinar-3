@@ -7,10 +7,10 @@ import { plural, formatNumber } from "../../utils";
 import './style.css';
 
 function Controls(props) {
-const {setModalOpened, cart, totalPrice} = props;
+  const {setModalOpened, cart, totalPrice} = props;
 
-const numberGoods = cart.length;
-const formatTotal = formatNumber(totalPrice);
+  const numberGoods = cart.length;
+  const formatTotal = formatNumber(totalPrice);
 
   return (
     <div className='Controls'>
@@ -26,12 +26,13 @@ const formatTotal = formatNumber(totalPrice);
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func,
-  cart: PropTypes.array
+  setModalOpened: PropTypes.func,
+  cart: PropTypes.array,
+  totalPrice: PropTypes.number
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  setModalOpened: () => {}
 }
 
 export default React.memo(Controls);

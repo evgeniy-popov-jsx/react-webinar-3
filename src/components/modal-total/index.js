@@ -17,7 +17,8 @@ function ModalTotal({totalPrice, cart}) {
 }
 
 ModalTotal.propTypes = {
-    totalPrice: PropTypes.number
+    totalPrice: PropTypes.number,
+    cart: PropTypes.array
   };
 
 export default React.memo(ModalTotal);

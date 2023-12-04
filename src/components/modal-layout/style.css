@@ -1,3 +1,7 @@
+body {
+    overflow: hidden
+}
+
 .Modal {
     position: fixed;
     top: 0;
