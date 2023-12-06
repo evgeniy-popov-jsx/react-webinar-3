@@ -4,7 +4,6 @@ import './style.css';
 
 
 function Pagination({store, callback}) {
-
     const currentPage = store.state.catalog.currentPage
     const totalCountPages = Math.ceil(store.state.catalog.totalCount / store.state.catalog.limit);
 
