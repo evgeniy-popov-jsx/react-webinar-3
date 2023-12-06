@@ -1,0 +1,29 @@
+.Item-details {
+    padding: 0 40px;
+    font-size: 18px;
+    font-family: Arial;
+    font-weight: 400;
+}
+
+.Item-details span {
+    font-weight: bold;
+}
+
+.Item-description {
+    margin: 20px 0;
+}
+
+.Item-country {
+    margin-bottom: 20px;
+}
+.Item-category {
+    margin-bottom: 20px;
+}
+.Item-edition {
+    margin-bottom: 20px;
+}
+.Item-sell {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
