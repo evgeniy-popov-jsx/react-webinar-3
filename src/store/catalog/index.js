@@ -25,7 +25,16 @@ class Catalog extends StoreModule {
       currentPage: currentPage,
       totalCount: json.result.count,
       list: json.result.items
-    }, 'Загружены товары из АПИ');
+    }, 'Загружен список товар по странице');
+  }
+
+  async loadCatalogId(itemId) {
+    const response = await fetch(`/api/v1/articles/${itemId}`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      list: [...this.store.state.catalog.list, json.result],
+    }, 'Загружены товар по ID');
   }
 }
 

@@ -1,5 +1,7 @@
 import {memo} from 'react';
 import {cn as bem} from '@bem-react/classname';
+import PropTypes from 'prop-types';
+
 import {numberFormat} from '../../utils';
 
 import './style.css';
@@ -9,9 +11,9 @@ function ItemDetails(props) {
     const cn = bem('Item');
 
     const callbacks = {
-        onAdd: (e) => props.onAdd(props.item._id)
+        onAdd: (e) => props.onAdd(props.item?._id)
       }
-    
+
     return (
         <div className={cn("details")}>
             <div className={cn("description")}>{props.item.description}</div>
@@ -24,4 +26,14 @@ function ItemDetails(props) {
     )
 }
 
+ItemDetails.propTypes = {
+    item: PropTypes.shape({
+      description: PropTypes.string,
+      title: PropTypes.string,
+      edition: PropTypes.number,
+      price: PropTypes.number
+    }).isRequired,
+    onAdd: PropTypes.func,
+  };
+  
 export default memo(ItemDetails);

@@ -18,15 +18,20 @@ function ItemInfo() {
     item: state.itemDetails.item,
   }));
 
+  const itemId = select.item?._id || params.id;
+
   useEffect(() => {
-    store.actions.itemDetails.loadItemById(params.id);
-  }, [params.id]);
+    if (select.list.length === 0) {
+      store.actions.catalog.loadCatalogId(itemId);
+    }
+    store.actions.itemDetails.loadItemById(itemId);
+}, [itemId]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [params.id]),
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   }
 
   return (

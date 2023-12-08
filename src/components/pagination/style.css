@@ -24,6 +24,7 @@
 }
 
 .Btn-pagination.active {
+    color: white;
     background-color: rgba(0, 135, 233, 1);
 }
 .Btn-pagination:hover {
