@@ -18,14 +18,14 @@ function ItemInfo() {
     item: state.itemDetails.item,
   }));
 
-  const itemId = select.item?._id || params.id;
+  const itemId = params.id || select.item?._id;
 
   useEffect(() => {
     if (select.list.length === 0) {
       store.actions.catalog.loadCatalogId(itemId);
     }
     store.actions.itemDetails.loadItemById(itemId);
-}, [itemId]);
+}, [itemId, select.item._id]);
 
   const callbacks = {
     // Добавление в корзину
