@@ -1,0 +1,39 @@
+.AuthButton {
+    margin: 10px 15px;
+    padding: 3px 9px;
+    min-width: 47px;
+    border-radius: 2px;
+    border: 1px solid #767676;
+    background: #EFEFEF;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  .AuthButton:hover {
+    background-color: #e2e2e2;
+  }
+  
+  .AuthButton-link {
+    display: block;
+    text-align: center;
+    width: 47px;
+    margin: 10px 15px;
+    padding: 3px;
+    border: 1px solid #767676;
+    border-radius: 2px;
+    background: #EFEFEF;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .AuthButton-link:hover {
+    background-color: #e2e2e2;
+  }
+  

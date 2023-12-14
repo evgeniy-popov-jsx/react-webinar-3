@@ -1,0 +1,48 @@
+.AuthForm {
+    display: flex;
+    flex-direction: column;
+    margin: 17px 0 0 20px;
+    gap: 20px;
+  }
+  
+  .AuthForm-label {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .AuthForm-input {
+    padding-left: 3px;
+    width: 203px;
+    height: 26px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    background: #FFF;
+    border-radius: 1px;
+    border: 1px solid #767676;
+}
+  
+  .AuthForm-button {
+    width: 53px;
+    height: 21px;
+    border-radius: 2px;
+    border: 1px solid #767676;
+    background: #EFEFEF;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    color: #000;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .AuthForm-button:hover {
+    background-color: #e2e2e2;
+  }
+  
+  .AuthForm span{
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    color: #ff0000;
+  }
