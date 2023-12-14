@@ -4,8 +4,8 @@ import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
-import Login from "./Login";
-import Profile from "./Profile";
+import Login from "./login";
+import Profile from "./profile";
 
 /**
  * Приложение
