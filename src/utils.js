@@ -33,3 +33,69 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+// Трансформация данных
+export function transformData(data) {
+  // Хэш-таблица для быстрого поиска узлов по идентификаторам
+  const idToNodeMap = new Map();
+
+  // Первый проход: создание объектов-узлов и заполнение хэш-таблицы
+  data.forEach(item => {
+    const node = {
+      value: item._id,
+      title: item.title,
+      depth: 0,
+      parent: null,
+      children: [],
+    };
+    idToNodeMap.set(item._id, node);
+  });
+
+  // Второй проход: построение дерева и формирование результата
+  const transformedData = [];
+  data.forEach(item => {
+    const currentNode = idToNodeMap.get(item._id);
+
+    if (item.parent) {
+      const parentNode = idToNodeMap.get(item.parent._id);
+      currentNode.parent = parentNode.value;
+      parentNode.children.push(currentNode);
+    } else {
+      // Узел верхнего уровня добавляется напрямую в результат
+      transformedData.push(currentNode);
+    }
+  });
+
+  // Обновляем глубину для корневых узлов, учитывая глубину родителя
+  transformedData.forEach(node => {
+    updateDepth(node);
+  });
+
+  // Функция для рекурсивного обновления глубины
+  function updateDepth(node) {
+    node.children.forEach(child => {
+      child.depth = node.depth + 1;
+      updateDepth(child);
+    });
+  }
+
+  // Функция для рекурсивного формирования результата
+  function flattenTree(node) {
+    const result = [{ value: node.value, title: `${"- ".repeat(node.depth)} ${node.title}`, depth: node.depth, parent: node.parent }];
+
+    // Рекурсивно обрабатываем дочерние узлы
+    node.children.forEach(child => {
+      result.push(...flattenTree(child));
+    });
+
+    return result;
+  }
+
+  // Собираем итоговый результат
+  const finalResult = [];
+  transformedData.forEach(node => {
+    finalResult.push(...flattenTree(node));
+  });
+
+  return finalResult;
+}

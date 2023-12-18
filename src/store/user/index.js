@@ -35,7 +35,7 @@ class UserState extends StoreModule {
             });
 
             const json = await response.json();
-
+          
             if (response.ok) {
                 // Сохранение токена в локальное хранилище
                 localStorage.setItem('X-Token', json.result.token);
@@ -52,15 +52,16 @@ class UserState extends StoreModule {
                 });
                 window.location.href = '/profile';
             } else {
+                console.log(json)
                 this.setState({
                     ...this.initState(),
-                    error: 'Введите пароль',
+                    error: json.error.data.issues[0].message,
                 });
             }
         } catch (err) {
             this.setState({
                 ...this.initState(),
-                error: 'Произошла ошибка во время аутентификации',
+                error: json.error.data.issues[0].message,
             });
         }
     }   
@@ -80,7 +81,7 @@ class UserState extends StoreModule {
                 ...this.getState(),
                 auht: false,
                 waiting: false,
-                error: 'Вы не авторизированны',
+                error: '',
             });
         } else {
             try {

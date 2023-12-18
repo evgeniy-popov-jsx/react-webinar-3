@@ -9,17 +9,25 @@ import Auth from "../../containers/auth";
 import AuthHeading from '../../components/auth-heading';
 import ProfileInfo from '../../components/profile-info';
 import Spinner from '../../components/spinner';
+import useStore from "../../hooks/use-store";
+import useInit from "../../hooks/use-init";
 
 /**
  * Страница Профиля
  */
 function Profile() { 
+  const store = useStore();
+
+  useInit(() => {
+    store.actions.profile.load();
+  }, [], true);
 
   const select = useSelector(state => ({
     name: state.user.user.name,
     phone: state.user.user.phone,
     email: state.user.user.email,
     waiting: state.user.waiting,
+    auth: state.profile.auth,
   }));
 
   const {t} = useTranslate();
@@ -31,10 +39,14 @@ function Profile() {
         <LocaleSelect/>
       </Head>
       <Navigation/>
-      <AuthHeading text={'Профиль'}/>
-      <Spinner active={select.waiting}>
-        <ProfileInfo name={select.name} phone={select.phone} email={select.email}/>
-      </Spinner>
+      {select.auth && (
+        <>
+          <AuthHeading text={'Профиль'}/>
+          <Spinner active={select.waiting}>
+            <ProfileInfo name={select.name} phone={select.phone} email={select.email}/>
+          </Spinner>
+        </>
+      )}  
     </PageLayout>
   );
 }

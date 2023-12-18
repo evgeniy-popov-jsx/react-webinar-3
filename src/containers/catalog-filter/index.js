@@ -1,10 +1,11 @@
-import {memo, useCallback, useMemo} from "react";
+import {memo, useCallback, useEffect, useMemo} from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import {transformData} from "../../utils";
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -17,6 +18,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
+    categoryList: state.category.categoryList,
   }));
 
   const callbacks = {
@@ -30,6 +32,15 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
+  useEffect(()=>{
+    store.actions.category.getCategory()
+  }, [])
+
+  const transformCategory = [
+    { value: '', title: 'Все' },
+    ...transformData(select.categoryList),
+  ];
+
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
@@ -37,19 +48,7 @@ function CatalogFilter() {
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
     ]), []),
-    category: useMemo(() => ([
-      {value: "", title: 'Все'},
-      { value: "65782dc9cbf638685992a338", title: "Электроника" },
-      { value: "65782dc9cbf638685992a339", title: "- Телефоны" },
-      { value: "65782dc9cbf638685992a340", title: "-- Смартфоны" },
-      { value: "65782dc9cbf638685992a341", title: "-- Аксессуары" },
-      { value: "65782dc9cbf638685992a33a", title: "- Ноутбуки" },
-      { value: "65782dc9cbf638685992a33b", title: "- Телевизоры" },
-      { value: "65782dc9cbf638685992a33c", title: "Книги" },
-      { value: "65782dc9cbf638685992a33d", title: "- Учебники" },
-      { value: "65782dc9cbf638685992a33e", title: "- Художественная" },
-      { value: "65782dc9cbf638685992a33f", title: "- Комиксы" },
-    ]), []),
+    category: useMemo(() => (transformCategory), [transformCategory]),
   };
 
   const {t} = useTranslate();
