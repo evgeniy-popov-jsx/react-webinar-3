@@ -22,8 +22,7 @@ export default {
     createComment: (text, commentId, articleId) => {
       return async (dispatch, getState, services) => {
         dispatch({ type: 'comment/create' });
-        console.log("Айди комментария", commentId)
-        console.log("Айди артикл", articleId)
+
         try {
           const body = {
             text,

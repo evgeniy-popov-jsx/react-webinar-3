@@ -1,4 +1,5 @@
 import { memo } from "react";
+import propTypes from 'prop-types';
 import Comment from '../../components/comment';
 import NoAuth from '../../components/no-auth';
 import {cn as bem} from '@bem-react/classname';
@@ -24,6 +25,16 @@ function CommentsList({tree, exists, onSubmit, onShowForm, onCloseForm, stateSho
         </div>
         </>
     );
+}
+
+CommentsList.propTypes = {
+   tree: propTypes.array,
+   exists: propTypes.bool,
+   onSubmit: propTypes.func,
+   onShowForm: propTypes.func,
+   onCloseForm: propTypes.func,
+   stateShow: propTypes.string,
+   articleId: propTypes.string,
 }
 
 export default memo(CommentsList)

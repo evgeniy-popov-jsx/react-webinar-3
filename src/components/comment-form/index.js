@@ -1,4 +1,5 @@
 import { useState} from 'react';
+import propTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import { memo } from 'react';
 
@@ -39,5 +40,14 @@ function CommentForm({ onSubmit, title, placeholder, commentId, exists, handleSh
         </form>
     );
 }
+
+CommentForm.propTypes = {
+    onSubmit: propTypes.func,
+    title: propTypes.string,
+    placeholder: propTypes.string,
+    commentId: propTypes.string,
+    exists: propTypes.bool,
+    handleShow: propTypes.func,
+  }
 
 export default memo(CommentForm);
