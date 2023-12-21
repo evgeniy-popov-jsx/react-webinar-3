@@ -1,0 +1,29 @@
+.CommentForm-title {
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.CommentForm-Textarea {
+    margin-bottom: 10px;
+    font-family: Arial;
+    font-size: 14px;
+ 
+}   
+
+.CommentForm-Textarea textarea {
+    resize: none;
+    width: 100%;
+}
+
+.CommentForm-Textarea textarea::placeholder {
+    font-size: 14px;
+    font-weight: 400; 
+}
+
+.CommentForm-SubmitButton {
+    padding-bottom: 30px;
+}
+
+.CommentForm-SubmitButton button {
+    margin-right: 10px;
+}

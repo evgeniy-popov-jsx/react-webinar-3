@@ -1,0 +1,56 @@
+.Comment {
+    margin-left: 30px;
+}
+.Comment-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+.Comment-title span {
+    font-weight: 700;
+}
+.Comment-title p {
+    margin: 0;
+    font-weight: 400;
+    color: #666666;
+}   
+
+.Comment-content {
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.Comment-button button {
+    padding: 0;
+    margin-bottom: 30px;
+    border: none;
+    background-color: transparent;
+    font-size: 12px;
+    color:#0087E9;
+    cursor: pointer;
+}
+.Comment-button button:hover {
+    color:#17659d;
+}
+.Comment-login {
+    padding-bottom: 30px;
+}
+.Comment-login a {
+    color:#0087E9;
+}
+.Comment-login a:hover {
+    color:#0e6fb4;
+}
+.Comment-login span {
+    text-decoration: underline;
+    color: #666666;
+    cursor: pointer;
+}
+.Comment-login span:hover {
+    color: #363434;
+    cursor: pointer;
+}

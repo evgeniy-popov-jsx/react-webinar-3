@@ -1,0 +1,12 @@
+.Auth-no {
+    padding: 30px 0px 30px 0px;
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+}
+.Auth-no a {
+    color: #0087E9;
+}
+.Auth-no a:hover {
+    color: #0e629e;
+}
