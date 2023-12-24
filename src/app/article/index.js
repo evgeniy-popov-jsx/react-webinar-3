@@ -43,7 +43,6 @@ function Article() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   }
-
   return (
     <PageLayout>
       <TopHead/>

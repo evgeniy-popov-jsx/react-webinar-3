@@ -21,8 +21,8 @@ export default {
   
     createComment: (text, commentId, articleId) => {
       return async (dispatch, getState, services) => {
-        dispatch({ type: 'comment/create' });
-
+        dispatch({ type: 'comment/create-start' });
+    
         try {
           const body = {
             text,
@@ -31,16 +31,20 @@ export default {
               _type: commentId ? 'comment' : 'article' 
             }
           };
+    
           const bodyStr = JSON.stringify(body);
-  
-          await services.api.request({
-            url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${articleId}`,
+    
+          const res = await services.api.request({
+            url: `/api/v1/comments`,
             method: 'POST',
             body: bodyStr,
           });
-
+    
+          const createdComment = res.data.result;
+          dispatch({ type: 'comment/create-success', payload: { createdComment } });
+    
         } catch (e) {
-          dispatch({ type: 'comments/load-error' });
+          dispatch({ type: 'comment/create-error' });
         }
       };
     }

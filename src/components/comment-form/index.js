@@ -5,8 +5,9 @@ import { memo } from 'react';
 
 import './style.css'; 
 
-function CommentForm({ onSubmit, title, placeholder, commentId, exists, handleShow }) {
-    const [commentText, setCommentText] = useState('');
+function CommentForm({ onSubmit, title, nameComment, commentId, exists, handleShow}) {
+    const defaultText = nameComment ? `Мой ответ для ${nameComment}` : 'Текст';
+    const [commentText, setCommentText] = useState(defaultText);
 
     const cn = bem('CommentForm');
 
@@ -18,7 +19,7 @@ function CommentForm({ onSubmit, title, placeholder, commentId, exists, handleSh
         e.preventDefault();
         if (commentText.trim() !== '') {
             onSubmit(commentText, commentId);
-            setCommentText('');
+            setCommentText(defaultText);
         }
     };
 
@@ -29,7 +30,6 @@ function CommentForm({ onSubmit, title, placeholder, commentId, exists, handleSh
                 <textarea
                     value={commentText}
                     onChange={handleInputChange}
-                    placeholder={placeholder ? `Мой ответ для ${placeholder}`: 'Текст'}
                     rows={5}    
                 ></textarea>
             </div>

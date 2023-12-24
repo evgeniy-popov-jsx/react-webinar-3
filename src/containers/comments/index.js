@@ -4,14 +4,14 @@ import commentsActions from "../../store-redux/comments/actions";
 import useSelector from '../../hooks/use-selector';
 import CommentsList from '../../components/comments-list';
 import CommentsCount from '../../components/comments-count';
-import buildTree from '../../utils/build-tree-comments';
+import listToTree from '../../utils/list-to-tree';
 
 function Comments({comments, articleId}) {
     const dispatch = useDispatch();
     // Состояние аткивной формы
     const [showReplyForm, setShowReplyForm] = useState(articleId);
     // Построение дерева комментарий и их общее число
-    const tree = buildTree(comments)
+    const tree = listToTree(comments)
     const countComments = comments.length;
 
     const select = useSelector(state => ({
@@ -23,9 +23,6 @@ function Comments({comments, articleId}) {
     // Отправка комментарий на сервер
     const handleSubmitComment = (text, commentId) => {
         dispatch(commentsActions.createComment(text, commentId, articleId))
-            .then(() => {
-                dispatch(commentsActions.loadComments(articleId));
-            })
     }
     // Отображение формы
     const handleShowForm = (id) => {
@@ -47,6 +44,7 @@ function Comments({comments, articleId}) {
                 onCloseForm={handleCloseForm}
                 stateShow={showReplyForm}
                 articleId={articleId}
+                profile={select.profile}
             />
         </>
       );

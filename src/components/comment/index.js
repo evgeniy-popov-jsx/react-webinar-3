@@ -1,17 +1,39 @@
-import { memo } from "react";
-import {Link} from 'react-router-dom';
+import { memo, useCallback, useState} from "react";
+import { useLocation, useNavigate} from 'react-router-dom';
 import formatDate from '../../utils/format-date';
 import CommentForm from '../comment-form';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function Comment({ comment, exists, onSubmit, onShowForm, onCloseForm, stateShow}) {
+function Comment({ 
+  comment, 
+  exists, 
+  onSubmit, 
+  onShowForm, 
+  onCloseForm, 
+  stateShow, 
+  depth, 
+  profile
+}) {
     const cn = bem('Comment');
+    const [profileName, setProfileName] = useState(profile);
+    const nameComment = comment.author?.profile?.name || profileName;
+    const maxDepth = 10;
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const callbacks = {
+      // Переход к авторизации
+      onSignIn: useCallback(() => {
+        navigate('/login', {state: {back: location.pathname}});
+      }, [location.pathname]),
+    }
+  
     return (
-      <div className={cn()}>
-        <div className={cn('title')}>
-            <span>{comment.author?.profile?.name}</span>
+      <div className={depth > maxDepth ? cn("nopad") : cn()}>
+        <div className={profile === nameComment ? cn('title auth') : cn('title')}>
+            <span>{nameComment}</span>
             <p>{formatDate(new Date(comment.dateCreate))}</p>
         </div>
         <div className={cn('content')}>
@@ -20,27 +42,34 @@ function Comment({ comment, exists, onSubmit, onShowForm, onCloseForm, stateShow
         <div className={cn('button')}>
             <button onClick={()=>{onShowForm(comment._id)}}>Ответить</button>
         </div>
-        
-        {exists === true
-          ? (stateShow === comment._id && <CommentForm 
-                                  onSubmit={onSubmit} 
-                                  title={'ответ'} 
-                                  placeholder={comment.author.profile.name} 
-                                  commentId={comment._id} 
-                                  exists={exists} 
-                                  handleShow={onCloseForm}
-                              />)
-
-          : (stateShow === comment._id && <div className={cn('login')}><Link to={"/login"}>Войдите</Link>, чтобы иметь возможность ответить. <span onClick={onCloseForm}>Отмена</span></div>)
-        }
+      
         {comment.children && comment.children.length > 0 && (
           <div className={cn('children')}>
             {comment.children.map(child => {
-              return <Comment key={child._id} comment={child} exists={exists} onSubmit={onSubmit}  onShowForm={onShowForm} onCloseForm={onCloseForm} stateShow={stateShow}/>
+              return <Comment 
+                        key={child._id} 
+                        comment={child} 
+                        exists={exists} 
+                        onSubmit={onSubmit}  
+                        onShowForm={onShowForm} 
+                        onCloseForm={onCloseForm} 
+                        stateShow={stateShow} 
+                        depth={depth + 1} 
+                        profile={profile}/>
             }
             )}
           </div>
         )}
+        {exists === true
+          ? (stateShow === comment._id && <CommentForm 
+                                            onSubmit={onSubmit} 
+                                            title={'ответ'} 
+                                            nameComment={nameComment} 
+                                            commentId={comment._id} 
+                                            exists={exists} 
+                                            handleShow={onCloseForm}
+                                          />)
+          : (stateShow === comment._id && <div className={cn('login')}><button onClick={callbacks.onSignIn}>Войдите</button>, чтобы иметь возможность ответить. <span onClick={onCloseForm}>Отмена</span></div>)}
       </div>
     );
   }

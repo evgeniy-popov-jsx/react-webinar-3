@@ -1,12 +1,21 @@
 .Auth-no {
-    padding: 30px 0px 30px 0px;
+    padding: 30px 0px 30px 30px;
     font-size: 16px;
     font-weight: 400;
     color: black;
 }
-.Auth-no a {
+.Auth-no button {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    text-decoration: underline;
     color: #0087E9;
 }
-.Auth-no a:hover {
+.Auth-no button:hover {
     color: #0e629e;
 }

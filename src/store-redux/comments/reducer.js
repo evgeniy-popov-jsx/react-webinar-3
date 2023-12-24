@@ -20,7 +20,7 @@ export const initialState = {
           return {...state, waiting: true};
 
       case "comment/create-success":
-        return {...state, data: [...state.data, action.payload.data], waiting: false};
+        return {...state, data: [...state.data, action.payload.createdComment], waiting: false};
 
       default:
         // Нет изменений
