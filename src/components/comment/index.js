@@ -1,4 +1,4 @@
-import { memo, useCallback, useState} from "react";
+import { memo, useCallback, useState, useRef, useEffect} from "react";
 import { useLocation, useNavigate} from 'react-router-dom';
 import formatDate from '../../utils/format-date';
 import CommentForm from '../comment-form';
@@ -22,6 +22,20 @@ function Comment({
 
     const navigate = useNavigate();
     const location = useLocation();
+    const formRef = useRef(null);
+  
+    useEffect(() => {
+      if (stateShow === comment._id && formRef.current) {
+        const element = formRef.current;
+        
+        const elementRect = element.getBoundingClientRect();
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  
+        const scrollToY = elementRect.top + elementRect.height / 2 - viewportHeight / 2;
+  
+        window.scrollTo({ top: window.scrollY + scrollToY, behavior: 'smooth' });
+      }
+    }, [stateShow, comment._id]);
 
     const callbacks = {
       // Переход к авторизации
@@ -61,15 +75,26 @@ function Comment({
           </div>
         )}
         {exists === true
-          ? (stateShow === comment._id && <CommentForm 
+          ? (stateShow === comment._id && (
+            <div ref={formRef}>
+              <CommentForm 
                                             onSubmit={onSubmit} 
                                             title={'ответ'} 
                                             nameComment={nameComment} 
                                             commentId={comment._id} 
                                             exists={exists} 
                                             handleShow={onCloseForm}
-                                          />)
-          : (stateShow === comment._id && <div className={cn('login')}><button onClick={callbacks.onSignIn}>Войдите</button>, чтобы иметь возможность ответить. <span onClick={onCloseForm}>Отмена</span></div>)}
+                                          />
+            </div>
+          ))
+          : (stateShow === comment._id && (
+            <div ref={formRef}>
+              <div className={cn('login')}>
+                <button onClick={callbacks.onSignIn}>Войдите</button>, чтобы иметь возможность ответить. <span onClick={onCloseForm}>Отмена</span>
+              </div>
+            </div>
+          )
+          )}
       </div>
     );
   }
